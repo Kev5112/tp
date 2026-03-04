@@ -18,6 +18,15 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Team Lead, Scheduling and Tracking, Deliverables and Deadlines
 
+### Hsu Myat Noe
+
+<img src="images/zealousginger.png" width="200px">
+
+[[github](https://github.com/ZealousGinger)]
+
+* Role: Developer
+* Responsibilities: Testing, Git expert
+
 ### Jane Doe
 
 <img src="images/johndoe.png" width="200px">
@@ -46,3 +55,12 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Developer
 * Responsibilities: Dev Ops + Threading
+
+### Xu Jiaqi
+
+<img src="images/jiaqixu1.png" width="200px">
+
+[[github](http://github.com/jiaqixu1)]
+
+* Role: Developer
+* Responsibilities: Documentation, Code Quality
