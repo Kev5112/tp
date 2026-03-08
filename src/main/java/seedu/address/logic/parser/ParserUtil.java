@@ -96,10 +96,10 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String tag} into a {@code Tag}.
+     * Parses a {@code String task} into a {@code Task}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code tag} is invalid.
+     * @throws ParseException if the given {@code task} is invalid.
      */
     public static Task parseTask(String task) throws ParseException {
         requireNonNull(task);
@@ -111,7 +111,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code Collection<String> tasks} into a {@code Set<Tag>}.
+     * Parses {@code Collection<String> tasks} into a {@code Set<Task>}.
      */
     public static Set<Task> parseTasks(Collection<String> tasks) throws ParseException {
         requireNonNull(tasks);

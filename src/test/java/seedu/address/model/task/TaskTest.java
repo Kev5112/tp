@@ -1,12 +1,10 @@
-package seedu.address.model.tag;
+package seedu.address.model.task;
 
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.task.Task;
-
-public class TagTest {
+public class TaskTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -14,13 +12,13 @@ public class TagTest {
     }
 
     @Test
-    public void constructor_invalidTagName_throwsIllegalArgumentException() {
-        String invalidTagName = "";
-        assertThrows(IllegalArgumentException.class, () -> new Task(invalidTagName));
+    public void constructor_invalidTaskName_throwsIllegalArgumentException() {
+        String invalidTaskName = "";
+        assertThrows(IllegalArgumentException.class, () -> new Task(invalidTaskName));
     }
 
     @Test
-    public void isValidTagName() {
+    public void isValidTaskName() {
         // null task name
         assertThrows(NullPointerException.class, () -> Task.isValidTaskName(null));
     }

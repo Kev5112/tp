@@ -25,14 +25,14 @@ public class ParserUtilTest {
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
-    private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_TASK = "#refactor code";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_EMAIL = "rachel@example.com";
-    private static final String VALID_TAG_1 = "friend";
-    private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_TASK_1 = "refactor code";
+    private static final String VALID_TASK_2 = "meeting with client";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -155,19 +155,19 @@ public class ParserUtilTest {
 
     @Test
     public void parseTag_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseTask(INVALID_TAG));
+        assertThrows(ParseException.class, () -> ParserUtil.parseTask(INVALID_TASK));
     }
 
     @Test
     public void parseTag_validValueWithoutWhitespace_returnsTask() throws Exception {
-        Task expectedTag = new Task(VALID_TAG_1);
-        assertEquals(expectedTag, ParserUtil.parseTask(VALID_TAG_1));
+        Task expectedTag = new Task(VALID_TASK_1);
+        assertEquals(expectedTag, ParserUtil.parseTask(VALID_TASK_1));
     }
 
     @Test
     public void parseTag_validValueWithWhitespace_returnsTrimmedTask() throws Exception {
-        String tagWithWhitespace = WHITESPACE + VALID_TAG_1 + WHITESPACE;
-        Task expectedTag = new Task(VALID_TAG_1);
+        String tagWithWhitespace = WHITESPACE + VALID_TASK_1 + WHITESPACE;
+        Task expectedTag = new Task(VALID_TASK_1);
         assertEquals(expectedTag, ParserUtil.parseTask(tagWithWhitespace));
     }
 
@@ -178,7 +178,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseTags_collectionWithInvalidTags_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseTasks(Arrays.asList(VALID_TAG_1, INVALID_TAG)));
+        assertThrows(ParseException.class, () -> ParserUtil.parseTasks(Arrays.asList(VALID_TASK_1, INVALID_TASK)));
     }
 
     @Test
@@ -188,8 +188,8 @@ public class ParserUtilTest {
 
     @Test
     public void parseTags_collectionWithValidTasks_returnsTaskSet() throws Exception {
-        Set<Task> actualTagSet = ParserUtil.parseTasks(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
-        Set<Task> expectedTagSet = new HashSet<Task>(Arrays.asList(new Task(VALID_TAG_1), new Task(VALID_TAG_2)));
+        Set<Task> actualTagSet = ParserUtil.parseTasks(Arrays.asList(VALID_TASK_1, VALID_TASK_2));
+        Set<Task> expectedTagSet = new HashSet<Task>(Arrays.asList(new Task(VALID_TASK_1), new Task(VALID_TASK_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
     }

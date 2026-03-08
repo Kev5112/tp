@@ -28,7 +28,7 @@ class JsonAdaptedPerson {
     private final String phone;
     private final String email;
     private final String address;
-    private final List<JsonAdaptedTask> tags = new ArrayList<>();
+    private final List<JsonAdaptedTask> tasks = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -42,7 +42,7 @@ class JsonAdaptedPerson {
         this.email = email;
         this.address = address;
         if (tasks != null) {
-            this.tags.addAll(tasks);
+            this.tasks.addAll(tasks);
         }
     }
 
@@ -54,7 +54,7 @@ class JsonAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
-        tags.addAll(source.getTasks().stream()
+        tasks.addAll(source.getTasks().stream()
                 .map(JsonAdaptedTask::new)
                 .collect(Collectors.toList()));
     }
@@ -65,9 +65,9 @@ class JsonAdaptedPerson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
     public Person toModelType() throws IllegalValueException {
-        final List<Task> personTags = new ArrayList<>();
-        for (JsonAdaptedTask tag : tags) {
-            personTags.add(tag.toModelType());
+        final List<Task> personTasks = new ArrayList<>();
+        for (JsonAdaptedTask task : tasks) {
+            personTasks.add(task.toModelType());
         }
 
         if (name == null) {
@@ -102,8 +102,8 @@ class JsonAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
 
-        final Set<Task> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        final Set<Task> modelTasks = new HashSet<>(personTasks);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTasks);
     }
 
 }

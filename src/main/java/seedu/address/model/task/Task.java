@@ -9,8 +9,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Task {
 
-    public static final String MESSAGE_CONSTRAINTS = "Tasks names should be alphanumeric";
-    public static final String VALIDATION_REGEX = "\\p{Alnum}+";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Task names should be alphanumeric, with single spaces between words.";
+    public static final String VALIDATION_REGEX = "\\p{Alnum}+( \\p{Alnum}+)*";
 
     public final String taskName;
     protected boolean isDone;
