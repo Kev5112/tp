@@ -12,6 +12,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 /**
  * Adds a person to the address book.
@@ -37,6 +38,7 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_TAG_NOT_FOUND = "One or more tags provided do not exist in the address book";
 
     private final Person toAdd;
 
@@ -54,6 +56,10 @@ public class AddCommand extends Command {
 
         if (model.hasPerson(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        }
+
+        if (toAdd.getTags().stream().anyMatch(tag -> !model.hasTag(tag))) {
+            throw new CommandException(MESSAGE_TAG_NOT_FOUND);
         }
 
         model.addPerson(toAdd);
