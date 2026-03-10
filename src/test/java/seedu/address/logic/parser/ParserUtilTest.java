@@ -6,10 +6,10 @@ import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -188,8 +188,8 @@ public class ParserUtilTest {
 
     @Test
     public void parseTasks_collectionWithValidTasks_returnsTaskSet() throws Exception {
-        Set<Task> actualTaskSet = ParserUtil.parseTasks(Arrays.asList(VALID_TASK_1, VALID_TASK_2));
-        Set<Task> expectedTaskSet = new HashSet<Task>(Arrays.asList(new Task(VALID_TASK_1), new Task(VALID_TASK_2)));
+        List<Task> actualTaskSet = ParserUtil.parseTasks(Arrays.asList(VALID_TASK_1, VALID_TASK_2));
+        List<Task> expectedTaskSet = new ArrayList<Task>(Arrays.asList(new Task(VALID_TASK_1), new Task(VALID_TASK_2)));
 
         assertEquals(expectedTaskSet, actualTaskSet);
     }

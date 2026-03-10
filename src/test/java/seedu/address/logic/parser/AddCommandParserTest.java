@@ -63,7 +63,7 @@ public class AddCommandParserTest {
                 VALID_TASK_FIX_ERROR, VALID_TASK_REFACTOR).build();
 
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + TASK_REFACTOR + TASK_FIX_ERROR, new AddCommand(expectedPersonMultipleTasks));
+                + TASK_FIX_ERROR + TASK_REFACTOR, new AddCommand(expectedPersonMultipleTasks));
     }
 
     @Test

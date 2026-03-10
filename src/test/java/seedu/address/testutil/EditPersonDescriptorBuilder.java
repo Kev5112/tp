@@ -1,6 +1,6 @@
 package seedu.address.testutil;
 
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -72,11 +72,11 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Parses the {@code tasks} into a {@code Set<Task>} and set it to the {@code EditPersonDescriptor}
+     * Parses the {@code tasks} into a {@code List<Task>} and set it to the {@code EditPersonDescriptor}
      * that we are building.
      */
     public EditPersonDescriptorBuilder withTasks(String... tasks) {
-        Set<seedu.address.model.task.Task> taskSet = Stream.of(tasks).map(Task::new).collect(Collectors.toSet());
+        List<Task> taskSet = Stream.of(tasks).map(Task::new).collect(Collectors.toList());
         descriptor.setTasks(taskSet);
         return this;
     }

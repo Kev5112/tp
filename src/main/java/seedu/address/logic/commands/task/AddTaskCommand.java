@@ -3,12 +3,11 @@ package seedu.address.logic.commands.task;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -85,7 +84,7 @@ public class AddTaskCommand extends Command {
         Email email = personToEdit.getEmail();
         Address address = personToEdit.getAddress();
 
-        Set<Task> newTasks = new HashSet<>(personToEdit.getTasks());
+        List<Task> newTasks = new ArrayList<>(personToEdit.getTasks());
         newTasks.addAll(addTaskDescriptor.getTasks().orElseThrow(() -> new CommandException(MESSAGE_NOT_EDITED)));
 
         return new Person(name, phone, email, address, newTasks);
@@ -111,7 +110,7 @@ public class AddTaskCommand extends Command {
      * Stores the tasks to add to the person.
      */
     public static class AddTaskDescriptor {
-        private Set<Task> tasks;
+        private List<Task> tasks;
 
         public AddTaskDescriptor() {}
 
@@ -127,8 +126,8 @@ public class AddTaskCommand extends Command {
          * Sets {@code tasks} to this object's {@code tasks}.
          * A defensive copy of {@code tasks} is used internally.
          */
-        public void setTasks(Set<Task> tasks) {
-            this.tasks = (tasks != null) ? new HashSet<>(tasks) : null;
+        public void setTasks(List<Task> tasks) {
+            this.tasks = (tasks != null) ? new ArrayList<>(tasks) : null;
         }
 
         /**
@@ -136,8 +135,8 @@ public class AddTaskCommand extends Command {
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code tasks} is null.
          */
-        public Optional<Set<Task>> getTasks() {
-            return (tasks != null) ? Optional.of(Collections.unmodifiableSet(tasks)) : Optional.empty();
+        public Optional<List<Task>> getTasks() {
+            return (tasks != null) ? Optional.of(Collections.unmodifiableList(tasks)) : Optional.empty();
         }
 
         /**

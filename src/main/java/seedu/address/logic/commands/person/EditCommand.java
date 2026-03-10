@@ -8,12 +8,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -101,7 +100,7 @@ public class EditCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        Set<Task> updatedTasks = editPersonDescriptor.getTasks().orElse(personToEdit.getTasks());
+        List<Task> updatedTasks = editPersonDescriptor.getTasks().orElse(personToEdit.getTasks());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTasks);
     }
@@ -139,7 +138,7 @@ public class EditCommand extends Command {
         private Phone phone;
         private Email email;
         private Address address;
-        private Set<Task> tasks;
+        private List<Task> tasks;
 
         public EditPersonDescriptor() {}
 
@@ -198,8 +197,8 @@ public class EditCommand extends Command {
          * Sets {@code tasks} to this object's {@code tasks}.
          * A defensive copy of {@code tasks} is used internally.
          */
-        public void setTasks(Set<Task> tasks) {
-            this.tasks = (tasks != null) ? new HashSet<>(tasks) : null;
+        public void setTasks(List<Task> tasks) {
+            this.tasks = (tasks != null) ? new ArrayList<>(tasks) : null;
         }
 
         /**
@@ -207,8 +206,8 @@ public class EditCommand extends Command {
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code tasks} is null.
          */
-        public Optional<Set<Task>> getTasks() {
-            return (tasks != null) ? Optional.of(Collections.unmodifiableSet(tasks)) : Optional.empty();
+        public Optional<List<Task>> getTasks() {
+            return (tasks != null) ? Optional.of(Collections.unmodifiableList(tasks)) : Optional.empty();
         }
 
         @Override

@@ -1,7 +1,7 @@
 package seedu.address.model.util;
 
 import java.util.Arrays;
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
@@ -49,12 +49,12 @@ public class SampleDataUtil {
     }
 
     /**
-     * Returns a task set containing the list of strings given.
+     * Returns a task list containing the list of strings given.
      */
-    public static Set<Task> getTaskSet(String... strings) {
+    public static List<Task> getTaskSet(String... strings) {
         return Arrays.stream(strings)
                 .map(Task::new)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
 
 }

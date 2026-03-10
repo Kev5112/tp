@@ -10,8 +10,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.person.EditCommand;
@@ -72,17 +72,17 @@ public class EditCommandParser implements Parser<EditCommand> {
     }
 
     /**
-     * Parses {@code Collection<String> tasks} into a {@code Set<Task>} if {@code tasks} is non-empty.
+     * Parses {@code Collection<String> tasks} into a {@code List<Task>} if {@code tasks} is non-empty.
      * If {@code tasks} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<Task>} containing zero tasks.
+     * {@code List<Task>} containing zero tasks.
      */
-    private Optional<Set<Task>> parseTasksForEdit(Collection<String> tasks) throws ParseException {
+    private Optional<List<Task>> parseTasksForEdit(Collection<String> tasks) throws ParseException {
         assert tasks != null;
 
         if (tasks.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> taskSet = tasks.size() == 1 && tasks.contains("") ? Collections.emptySet() : tasks;
+        Collection<String> taskSet = tasks.size() == 1 && tasks.contains("") ? Collections.emptyList() : tasks;
         return Optional.of(ParserUtil.parseTasks(taskSet));
     }
 

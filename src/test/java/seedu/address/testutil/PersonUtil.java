@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 
-import java.util.Set;
+import java.util.List;
 
 import seedu.address.logic.commands.person.AddCommand;
 import seedu.address.logic.commands.person.EditCommand.EditPersonDescriptor;
@@ -50,7 +50,7 @@ public class PersonUtil {
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
         descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
         if (descriptor.getTasks().isPresent()) {
-            Set<Task> tasks = descriptor.getTasks().get();
+            List<Task> tasks = descriptor.getTasks().get();
             if (tasks.isEmpty()) {
                 sb.append(PREFIX_TASK);
             } else {

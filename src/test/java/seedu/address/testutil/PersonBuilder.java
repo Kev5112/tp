@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -25,7 +25,7 @@ public class PersonBuilder {
     private Phone phone;
     private Email email;
     private Address address;
-    private Set<Task> tasks;
+    private List<Task> tasks;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -35,7 +35,7 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
-        tasks = new HashSet<>();
+        tasks = new ArrayList<>();
     }
 
     /**
@@ -46,7 +46,7 @@ public class PersonBuilder {
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
-        tasks = new HashSet<>(personToCopy.getTasks());
+        tasks = new ArrayList<>(personToCopy.getTasks());
     }
 
     /**
@@ -58,7 +58,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Parses the {@code tasks} into a {@code Set<Task>} and set it to the {@code Person} that we are building.
+     * Parses the {@code tasks} into a {@code List<Task>} and set it to the {@code Person} that we are building.
      */
     public PersonBuilder withTasks(String ... tasks) {
         this.tasks = SampleDataUtil.getTaskSet(tasks);
