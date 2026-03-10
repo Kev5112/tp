@@ -44,7 +44,7 @@ public class DeleteTaskCommandParser implements Parser<DeleteTaskCommand> {
 
         DeleteTaskDescriptor DeleteTaskDescriptor = new DeleteTaskDescriptor();
 
-        parseTasksIndexesForAdd(argMultimap.getAllValues(PREFIX_TASK_DESCRIPTION)).ifPresent(DeleteTaskDescriptor::setTasksIndexes);
+        parseTasksIndexesForAdd(argMultimap.getAllValues(PREFIX_TASK)).ifPresent(DeleteTaskDescriptor::setTasksIndexes);
 
         if (!DeleteTaskDescriptor.isTaskFieldEdited()) {
             throw new ParseException(DeleteTaskCommand.MESSAGE_NOT_EDITED);

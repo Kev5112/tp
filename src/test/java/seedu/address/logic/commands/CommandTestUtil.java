@@ -65,6 +65,10 @@ public class CommandTestUtil {
     public static final String TASK_DESC_IMPLEMENT_Y = " " + PREFIX_TASK_DESCRIPTION + VALID_TASK_IMPLEMENT_Y;
     public static final String TASK_DESC_IMPLEMENT_Z = " " + PREFIX_TASK_DESCRIPTION + VALID_TASK_IMPLEMENT_Z;
 
+    public static final String TASK_DELETE_1 = " " + PREFIX_TASK + "1";
+    public static final String TASK_DELETE_2 = " " + PREFIX_TASK + "2";
+    public static final String INVALID_TASK_DELETE = " " + PREFIX_TASK + "-1";
+
     public static final String INVALID_TASK_DESC_ADD = " " + PREFIX_TASK_DESCRIPTION
             + "refactor code*"; // '*' not allowed in tasks
 
