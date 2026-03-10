@@ -239,6 +239,41 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
+### Project management feature (`add-tag`, `view-tags`, `delete-tag`)
+
+TaskForge supports project management using three commands:
+`add-tag`, `view-tags`, and `delete-tag`.
+
+#### Implementation overview
+
+1. **Model layer**
+   - `UniqueTagList` stores globally unique project entries.
+   - `AddressBook` exposes project operations through methods such as
+       `hasTag`, `addTag`, `removeTag`, and `getTagList`.
+
+2. **Logic layer**
+    - `AddTagCommand` adds a new project entry to the global list.
+    - `DeleteTagCommand` removes a project entry by index from the displayed list.
+    - `ViewAllTagCommand` shows all project entries.
+    - `AddressBookParser` routes `add-tag`, `delete-tag`, and `view-tags` to their
+       corresponding command parsers/commands.
+
+3. **Storage layer**
+    - `JsonSerializableAddressBook` persists project entries in the `tags` JSON array.
+    - During deserialization, tags are restored into the model so project entries persist
+       across application restarts.
+
+#### Validation behavior in add/edit person
+
+When a user adds or edits a person including changing project, each value must already exist in the
+global project list:
+
+- `AddCommand` validates each tag via `model.hasTag(tag)` before adding the person.
+- `EditCommand` validates each edited tag via `model.hasTag(tag)` before committing changes.
+- If any tag is missing, command execution fails with `MESSAGE_TAG_NOT_FOUND`.
+
+This ensures a person can only be assigned to valid existing projects.
+
 ### \[Proposed\] Data archiving
 
 _{Explain here how the data archiving feature will be implemented}_
