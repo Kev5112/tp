@@ -82,7 +82,8 @@ public class DeleteTaskCommand extends Command {
 
         List<Task> newTasks = new ArrayList<>(personToEdit.getTasks());
         List<Task> tasksToDelete = new ArrayList<>();
-        List<Index> indexToDelete = deleteTaskDescriptor.getTasksIndexes().orElseThrow(() -> new CommandException(MESSAGE_NOT_EDITED));
+        List<Index> indexToDelete = deleteTaskDescriptor.getTasksIndexes()
+                .orElseThrow(() -> new CommandException(MESSAGE_NOT_EDITED));
         for (int i = 0; i < indexToDelete.size(); ++i) {
             int taskIndex = indexToDelete.get(i).getZeroBased();
             try {

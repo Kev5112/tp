@@ -12,11 +12,9 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.Messages;
 import seedu.address.logic.commands.task.DeleteTaskCommand;
 import seedu.address.logic.commands.task.DeleteTaskCommand.DeleteTaskDescriptor;
 import seedu.address.logic.parser.task.DeleteTaskCommandParser;
-import seedu.address.model.task.Task;
 import seedu.address.testutil.DeleteTaskDescriptorBuilder;
 
 public class DeleteTaskCommandParserTest {

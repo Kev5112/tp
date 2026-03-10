@@ -28,7 +28,6 @@ public class DeleteTaskDescriptorBuilder {
      */
     public DeleteTaskDescriptorBuilder(Person person) {
         descriptor = new DeleteTaskDescriptor();
-//        descriptor.setTasks(person.getTasks());
     }
 
     /**
@@ -36,7 +35,9 @@ public class DeleteTaskDescriptorBuilder {
      * that we are building.
      */
     public DeleteTaskDescriptorBuilder withTasks(String... indexes) {
-        List<Index> taskIndexSet = Stream.of(indexes).map(s -> Index.fromOneBased(Integer.parseInt(s))).collect(Collectors.toList());
+        List<Index> taskIndexSet = Stream.of(indexes)
+                .map(s -> Index.fromOneBased(Integer.parseInt(s)))
+                .collect(Collectors.toList());
         descriptor.setTasksIndexes(taskIndexSet);
         return this;
     }

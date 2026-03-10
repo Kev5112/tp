@@ -3,7 +3,6 @@ package seedu.address.logic.parser.task;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DESCRIPTION;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -39,18 +38,20 @@ public class DeleteTaskCommandParser implements Parser<DeleteTaskCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTaskCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DeleteTaskCommand.MESSAGE_USAGE), pe);
         }
 
-        DeleteTaskDescriptor DeleteTaskDescriptor = new DeleteTaskDescriptor();
+        DeleteTaskDescriptor deleteTaskDescriptor = new DeleteTaskDescriptor();
 
-        parseTasksIndexesForAdd(argMultimap.getAllValues(PREFIX_TASK)).ifPresent(DeleteTaskDescriptor::setTasksIndexes);
+        parseTasksIndexesForAdd(argMultimap.getAllValues(PREFIX_TASK))
+                .ifPresent(deleteTaskDescriptor::setTasksIndexes);
 
-        if (!DeleteTaskDescriptor.isTaskFieldEdited()) {
+        if (!deleteTaskDescriptor.isTaskFieldEdited()) {
             throw new ParseException(DeleteTaskCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new DeleteTaskCommand(index, DeleteTaskDescriptor);
+        return new DeleteTaskCommand(index, deleteTaskDescriptor);
     }
 
     /**
@@ -58,13 +59,15 @@ public class DeleteTaskCommandParser implements Parser<DeleteTaskCommand> {
      * If {@code tasks} contain only one element which is an empty string, it will be parsed into a
      * {@code List<Task>} containing zero tasks.
      */
-    private Optional<List<Index>> parseTasksIndexesForAdd(Collection<String> tasksIndexes) throws ParseException {
+    private Optional<List<Index>> parseTasksIndexesForAdd(Collection<String> tasksIndexes)
+            throws ParseException {
         assert tasksIndexes != null;
 
         if (tasksIndexes.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> taskSet = tasksIndexes.size() == 1 && tasksIndexes.contains("") ? Collections.emptyList() : tasksIndexes;
+        Collection<String> taskSet = tasksIndexes.size() == 1
+                && tasksIndexes.contains("") ? Collections.emptyList() : tasksIndexes;
         return Optional.of(ParserUtil.parseTaskIndexes(taskSet));
     }
 }

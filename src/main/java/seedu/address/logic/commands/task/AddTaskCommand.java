@@ -87,6 +87,11 @@ public class AddTaskCommand extends Command {
         return new Person(name, phone, email, address, newTasks);
     }
 
+    /**
+     * Checks and returns a {@code List<Task>} if there is no duplicates.
+     * A {@code CommandException} is thrown if there are duplicates.
+     *
+     */
     public static List<Task> checkUniqueTasks(List<Task> tasks) throws CommandException {
         long distinctCount = tasks.stream().distinct().count();
         if (distinctCount != tasks.size()) {
