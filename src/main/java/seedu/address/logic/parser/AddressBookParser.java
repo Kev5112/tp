@@ -19,6 +19,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.project.AddTagCommand;
 import seedu.address.logic.commands.project.DeleteTagCommand;
+import seedu.address.logic.commands.project.ViewAllTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -84,6 +85,9 @@ public class AddressBookParser {
 
         case DeleteTagCommand.COMMAND_WORD:
             return new DeleteTagCommandParser().parse(arguments);
+
+        case ViewAllTagCommand.COMMAND_WORD:
+            return new ViewAllTagCommand();
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
