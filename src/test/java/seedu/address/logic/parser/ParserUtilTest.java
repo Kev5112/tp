@@ -25,7 +25,7 @@ public class ParserUtilTest {
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
-    private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_PROJECT = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -155,7 +155,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseProject_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseProject(INVALID_TAG));
+        assertThrows(ParseException.class, () -> ParserUtil.parseProject(INVALID_PROJECT));
     }
 
     @Test
@@ -166,8 +166,8 @@ public class ParserUtilTest {
 
     @Test
     public void parseProject_validValueWithWhitespace_returnsTrimmedProject() throws Exception {
-        String tagWithWhitespace = WHITESPACE + VALID_PROJECT_1 + WHITESPACE;
+        String projectWithWhitespace = WHITESPACE + VALID_PROJECT_1 + WHITESPACE;
         Project expectedProject = new Project(VALID_PROJECT_1);
-        assertEquals(expectedProject, ParserUtil.parseProject(tagWithWhitespace));
+        assertEquals(expectedProject, ParserUtil.parseProject(projectWithWhitespace));
     }
 }

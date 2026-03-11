@@ -20,7 +20,7 @@ public class ProjectTest {
     }
 
     @Test
-    public void isValidTagName() {
+    public void isValidProjectName() {
         // null tag name
         assertThrows(NullPointerException.class, () -> Project.isValidProjectName(null));
     }

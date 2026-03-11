@@ -35,16 +35,16 @@ public class AddCommandParserTest {
                 + ADDRESS_DESC_BOB + PROJECT_DESC_BETA, new AddCommand(expectedPerson));
 
 
-        // multiple tags - all accepted
-        Person expectedPersonMultipleTags = new PersonBuilder(BOB).withProjects(VALID_PROJECT_BETA, VALID_PROJECT_ALPHA)
+        // multiple projects - all accepted
+        Person expectedPersonMultipleProjects = new PersonBuilder(BOB).withProjects(VALID_PROJECT_BETA, VALID_PROJECT_ALPHA)
                 .build();
         assertParseSuccess(parser,
                 NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + PROJECT_DESC_ALPHA + PROJECT_DESC_BETA,
-                new AddCommand(expectedPersonMultipleTags));
+                new AddCommand(expectedPersonMultipleProjects));
     }
 
     @Test
-    public void parse_repeatedNonTagValue_failure() {
+    public void parse_repeatedNonProjectValue_failure() {
         String validExpectedPersonString = NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + PROJECT_DESC_BETA;
 
@@ -109,7 +109,7 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_optionalFieldsMissing_success() {
-        // zero tags
+        // zero projects
         Person expectedPerson = new PersonBuilder(AMY).withProjects().build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY,
                 new AddCommand(expectedPerson));
@@ -158,7 +158,7 @@ public class AddCommandParserTest {
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC
                 + PROJECT_DESC_ALPHA + PROJECT_DESC_BETA, Address.MESSAGE_CONSTRAINTS);
 
-        // invalid tag
+        // invalid project
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + INVALID_PROJECT_DESC + VALID_PROJECT_BETA, Project.MESSAGE_CONSTRAINTS);
 
