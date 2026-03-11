@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.stream.Collectors;
 
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
@@ -41,6 +42,8 @@ public class ViewAllTagCommand extends Command {
 
     @Override
     public String toString() {
-        return COMMAND_WORD;
+        return new ToStringBuilder(this)
+                .add("commandWord", COMMAND_WORD)
+                .toString();
     }
 }

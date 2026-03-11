@@ -62,7 +62,14 @@ public class ViewAllTagCommandTest {
 
     @Test
     public void toStringMethod() {
-        assertEquals(ViewAllTagCommand.COMMAND_WORD, new ViewAllTagCommand().toString());
+        String expected = ViewAllTagCommand.class.getCanonicalName()
+                + "{commandWord=" + ViewAllTagCommand.COMMAND_WORD + "}";
+        assertEquals(expected, new ViewAllTagCommand().toString());
+    }
+
+    @Test
+    public void hashCodeMethod() {
+        assertEquals(ViewAllTagCommand.COMMAND_WORD.hashCode(), new ViewAllTagCommand().hashCode());
     }
 
     /**
