@@ -25,6 +25,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_FIX_ERROR;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_REFACTOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
@@ -64,10 +65,19 @@ public class AddCommandParserTest {
 
         // multiple tasks - all accepted
         Person expectedPersonMultipleTasks = new PersonBuilder(BOB).withTasks(
-                VALID_TASK_FIX_ERROR, VALID_TASK_REFACTOR).build();
+                VALID_TASK_FIX_ERROR, VALID_TASK_REFACTOR).withTags().build();
 
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + TASK_FIX_ERROR + TASK_REFACTOR, new AddCommand(expectedPersonMultipleTasks));
+
+        // multiple tags - all accepted
+        Person expectedPersonMultipleTags = new PersonBuilder(BOB)
+                .withTasks()
+                .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+                .build();
+        assertParseSuccess(parser,
+                NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
+                new AddCommand(expectedPersonMultipleTags));
     }
 
     @Test
