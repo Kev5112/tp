@@ -30,7 +30,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_REFACTOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PROJECT_TITLE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PROJECT_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -55,7 +55,7 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 public class EditCommandParserTest {
 
-    private static final String PROJECT_EMPTY = " " + PREFIX_PROJECT_TITLE;
+    private static final String PROJECT_EMPTY = " " + PREFIX_PROJECT_INDEX;
     private static final String TASK_EMPTY = " " + PREFIX_TASK;
 
     private static final String MESSAGE_INVALID_FORMAT =
