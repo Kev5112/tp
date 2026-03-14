@@ -8,19 +8,32 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.projectcommand.ProjectAddCommand;
+import seedu.address.logic.commands.person.AddCommand;
+import seedu.address.logic.commands.person.ClearCommand;
+import seedu.address.logic.commands.person.DeleteCommand;
+import seedu.address.logic.commands.person.EditCommand;
+import seedu.address.logic.commands.person.FindCommand;
+import seedu.address.logic.commands.person.ListCommand;
+import seedu.address.logic.commands.project.AddTagCommand;
+import seedu.address.logic.commands.project.DeleteTagCommand;
+import seedu.address.logic.commands.project.ViewAllTagCommand;
+import seedu.address.logic.commands.projectcommand.AddProjectCommand;
+import seedu.address.logic.commands.projectcommand.DeleteProjectCommand;
 import seedu.address.logic.commands.projectcommand.ProjectCommand;
-import seedu.address.logic.commands.projectcommand.ProjectDeleteCommand;
+import seedu.address.logic.commands.task.AddTaskCommand;
+import seedu.address.logic.commands.task.DeleteTaskCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.person.AddCommandParser;
+import seedu.address.logic.parser.person.DeleteCommandParser;
+import seedu.address.logic.parser.person.EditCommandParser;
+import seedu.address.logic.parser.person.FindCommandParser;
+import seedu.address.logic.parser.project.AddProjectCommandParser;
+import seedu.address.logic.parser.project.DeleteProjectCommandParser;
+import seedu.address.logic.parser.task.AddTaskCommandParser;
+import seedu.address.logic.parser.task.DeleteTaskCommandParser;
 
 /**
  * Parses user input.
@@ -56,6 +69,7 @@ public class AddressBookParser {
 
         switch (commandWord) {
 
+        // Person related commands
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
@@ -74,14 +88,32 @@ public class AddressBookParser {
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
+        // Task related commands
+        case AddTaskCommand.COMMAND_WORD:
+            return new AddTaskCommandParser().parse(arguments);
+
+        case DeleteTaskCommand.COMMAND_WORD:
+            return new DeleteTaskCommandParser().parse(arguments);
+
+        // Project related commands
+        case ProjectCommand.COMMAND_WORD:
+            return handleProject(arguments);
+
+        // Address book related commands
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case ProjectCommand.COMMAND_WORD:
-            return handleProject(arguments);
+        case AddTagCommand.COMMAND_WORD:
+            return new AddTagCommandParser().parse(arguments);
+
+        case DeleteTagCommand.COMMAND_WORD:
+            return new DeleteTagCommandParser().parse(arguments);
+
+        case ViewAllTagCommand.COMMAND_WORD:
+            return new ViewAllTagCommand();
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
@@ -89,7 +121,7 @@ public class AddressBookParser {
         }
     }
 
-    private ProjectCommand handleProject(String subinput) throws ParseException {
+    private Command handleProject(String subinput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(subinput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ProjectCommand.MESSAGE_USAGE));
@@ -100,11 +132,11 @@ public class AddressBookParser {
 
         switch (subcommandWord) {
 
-        case ProjectAddCommand.SUBCOMMAND_WORD:
-            return new ProjectAddCommandParser().parse(arguments);
+        case AddProjectCommand.SUBCOMMAND_WORD:
+            return new AddProjectCommandParser().parse(arguments);
 
-        case ProjectDeleteCommand.SUBCOMMAND_WORD:
-            return new ProjectDeleteCommandParser().parse(arguments);
+        case DeleteProjectCommand.SUBCOMMAND_WORD:
+            return new DeleteProjectCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: project " + subinput);

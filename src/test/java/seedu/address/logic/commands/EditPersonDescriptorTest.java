@@ -9,10 +9,12 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PROJECT_BETA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_REFACTOR;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.person.EditCommand.EditPersonDescriptor;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 public class EditPersonDescriptorTest {
@@ -51,8 +53,12 @@ public class EditPersonDescriptorTest {
         editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withAddress(VALID_ADDRESS_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
-        // different tags -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).build();
+        // different projects -> returns false
+        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withTasks(VALID_PROJECT_BETA).build();
+        assertFalse(DESC_AMY.equals(editedAmy));
+
+        // different tasks -> returns false
+        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withTasks(VALID_TASK_REFACTOR).build();
         assertFalse(DESC_AMY.equals(editedAmy));
     }
 
@@ -63,7 +69,10 @@ public class EditPersonDescriptorTest {
                 + editPersonDescriptor.getName().orElse(null) + ", phone="
                 + editPersonDescriptor.getPhone().orElse(null) + ", email="
                 + editPersonDescriptor.getEmail().orElse(null) + ", address="
-                + editPersonDescriptor.getAddress().orElse(null) + ", tags=";
+                + editPersonDescriptor.getAddress().orElse(null) + ", projects="
+                + editPersonDescriptor.getProjects().orElse(null) + ", tasks="
+                + editPersonDescriptor.getTasks().orElse(null) + ", tags="
+                + editPersonDescriptor.getTags().orElse(null) + "}";
         assertEquals(expected, editPersonDescriptor.toString());
     }
 }

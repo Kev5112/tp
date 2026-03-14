@@ -14,7 +14,7 @@ public class ProjectTest {
     @Test
     public void constructor_invalidProjectName_throwsIllegalArgumentException() {
         String invalidProjectNameTooShort = "";
-        String invalidProjectNameTooLong = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnqrstuvwxyzabcdefghijklm";
+        String invalidProjectNameTooLong = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnqrstuvwxyzabcdefghijklmno";
         assertThrows(IllegalArgumentException.class, () -> new Project(invalidProjectNameTooShort));
         assertThrows(IllegalArgumentException.class, () -> new Project(invalidProjectNameTooLong));
     }
@@ -22,7 +22,7 @@ public class ProjectTest {
     @Test
     public void isValidProjectName() {
         // null tag name
-        assertThrows(NullPointerException.class, () -> Project.isValidProjectName(null));
+        assertThrows(NullPointerException.class, () -> Project.isValidProjectTitle(null));
     }
 
 }

@@ -1,7 +1,9 @@
 package seedu.address.testutil;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -9,6 +11,8 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.project.Project;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.task.Task;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
@@ -26,6 +30,8 @@ public class PersonBuilder {
     private Email email;
     private Address address;
     private List<Project> projects;
+    private List<Task> tasks;
+    private Set<Tag> tags;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -36,6 +42,8 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         projects = new ArrayList<>();
+        tasks = new ArrayList<>();
+        tags = new HashSet<>();
     }
 
     /**
@@ -47,6 +55,8 @@ public class PersonBuilder {
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
         projects = new ArrayList<>(personToCopy.getProjects());
+        tasks = new ArrayList<>(personToCopy.getTasks());
+        tags = new HashSet<>(personToCopy.getTags());
     }
 
     /**
@@ -60,8 +70,25 @@ public class PersonBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
      */
-    public PersonBuilder withProjects(String ... tags) {
-        this.projects = SampleDataUtil.getProjectList(tags);
+    public PersonBuilder withProjects(String ... projects) {
+        this.projects = SampleDataUtil.getProjectList(projects);
+        return this;
+    }
+
+
+    /**
+     * Parses the {@code tasks} into a {@code List<Task>} and set it to the {@code Person} that we are building.
+     */
+    public PersonBuilder withTasks(String ... tasks) {
+        this.tasks = SampleDataUtil.getTaskList(tasks);
+        return this;
+    }
+
+    /**
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
+     */
+    public PersonBuilder withTags(String ... tags) {
+        this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
 
@@ -90,7 +117,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, email, address, projects);
+        return new Person(name, phone, email, address, projects, tasks, tags);
     }
 
 }

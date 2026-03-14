@@ -1,9 +1,15 @@
 package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -13,13 +19,15 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.project.Project;
+import seedu.address.model.task.Task;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
-    private static final String INVALID_PROJECT = "#friend";
+    private static final String INVALID_PROJECT = "#alpha";
+    private static final String INVALID_TASK = "#refactor code";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -27,6 +35,8 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_PROJECT_1 = "alpha";
     private static final String VALID_PROJECT_2 = "beta";
+    private static final String VALID_TASK_1 = "refactor code";
+    private static final String VALID_TASK_2 = "meeting with client";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -163,5 +173,78 @@ public class ParserUtilTest {
         String projectWithWhitespace = WHITESPACE + VALID_PROJECT_1 + WHITESPACE;
         Project expectedProject = new Project(VALID_PROJECT_1);
         assertEquals(expectedProject, ParserUtil.parseProject(projectWithWhitespace));
+    }
+
+    @Test
+    public void parseProjects_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseProjects(null));
+    }
+
+    @Test
+    public void parseProjects_collectionWithInvalidProject_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseProjects(
+                Arrays.asList(VALID_PROJECT_1, INVALID_PROJECT))
+        );
+    }
+
+    @Test
+    public void parseProjects_emptyCollection_returnsEmptySet() throws Exception {
+        assertTrue(ParserUtil.parseProjects(Collections.emptyList()).isEmpty());
+    }
+
+    @Test
+    public void parseProjects_collectionWithValidProjects_returnsProjectSet() throws Exception {
+        List<Project> actualProjectSet = ParserUtil.parseProjects(Arrays.asList(VALID_PROJECT_1, VALID_PROJECT_2));
+        List<Project> expectedProjectSet = new ArrayList<Project>(Arrays.asList(
+                new Project(VALID_PROJECT_1), new Project(VALID_PROJECT_2))
+        );
+
+        assertEquals(expectedProjectSet, actualProjectSet);
+    }
+
+    @Test
+    public void parseTask_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseTask(null));
+    }
+
+    @Test
+    public void parseTask_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseTask(INVALID_TASK));
+    }
+
+    @Test
+    public void parseTask_validValueWithoutWhitespace_returnsTask() throws Exception {
+        Task expectedTask = new Task(VALID_TASK_1);
+        assertEquals(expectedTask, ParserUtil.parseTask(VALID_TASK_1));
+    }
+
+    @Test
+    public void parseTask_validValueWithWhitespace_returnsTrimmedTask() throws Exception {
+        String taskWithWhitespace = WHITESPACE + VALID_TASK_1 + WHITESPACE;
+        Task expectedTask = new Task(VALID_TASK_1);
+        assertEquals(expectedTask, ParserUtil.parseTask(taskWithWhitespace));
+    }
+
+    @Test
+    public void parseTasks_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseTasks(null));
+    }
+
+    @Test
+    public void parseTasks_collectionWithInvalidTasks_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseTasks(Arrays.asList(VALID_TASK_1, INVALID_TASK)));
+    }
+
+    @Test
+    public void parseTasks_emptyCollection_returnsEmptySet() throws Exception {
+        assertTrue(ParserUtil.parseTasks(Collections.emptyList()).isEmpty());
+    }
+
+    @Test
+    public void parseTasks_collectionWithValidTasks_returnsTaskSet() throws Exception {
+        List<Task> actualTaskSet = ParserUtil.parseTasks(Arrays.asList(VALID_TASK_1, VALID_TASK_2));
+        List<Task> expectedTaskSet = new ArrayList<Task>(Arrays.asList(new Task(VALID_TASK_1), new Task(VALID_TASK_2)));
+
+        assertEquals(expectedTaskSet, actualTaskSet);
     }
 }

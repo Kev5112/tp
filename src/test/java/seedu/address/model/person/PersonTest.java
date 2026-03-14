@@ -8,6 +8,9 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PROJECT_ALPHA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PROJECT_BETA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_FIX_ERROR;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_REFACTOR;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
@@ -22,6 +25,7 @@ public class PersonTest {
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
         Person person = new PersonBuilder().build();
         assertThrows(UnsupportedOperationException.class, () -> person.getProjects().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> person.getTasks().remove(0));
     }
 
     @Test
@@ -34,7 +38,8 @@ public class PersonTest {
 
         // same name, all other attributes different -> returns true
         Person editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
-                .withAddress(VALID_ADDRESS_BOB).withProjects(VALID_PROJECT_ALPHA).build();
+                .withAddress(VALID_ADDRESS_BOB).withProjects(VALID_PROJECT_ALPHA)
+                .withTasks(VALID_TASK_REFACTOR).build();
         assertTrue(ALICE.isSamePerson(editedAlice));
 
         // different name, all other attributes same -> returns false
@@ -85,16 +90,20 @@ public class PersonTest {
         editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different tags -> returns false
-        editedAlice = new PersonBuilder(ALICE).withProjects(VALID_PROJECT_ALPHA).build();
+        // different projects -> returns false
+        editedAlice = new PersonBuilder(ALICE).withProjects(VALID_PROJECT_BETA).build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // different tasks -> returns false
+        editedAlice = new PersonBuilder(ALICE).withTasks(VALID_TASK_FIX_ERROR).build();
         assertFalse(ALICE.equals(editedAlice));
     }
 
     @Test
     public void toStringMethod() {
         String expected = Person.class.getCanonicalName() + "{name=" + ALICE.getName() + ", phone=" + ALICE.getPhone()
-                + ", email=" + ALICE.getEmail() + ", address=" + ALICE.getAddress() + ", tags="
-                + ALICE.getProjects() + "}";
+                + ", email=" + ALICE.getEmail() + ", address=" + ALICE.getAddress() + ", projects="
+                + ALICE.getProjects() + ", tasks=" + ALICE.getTasks() + ", tags=" + ALICE.getTags() + "}";
         assertEquals(expected, ALICE.toString());
     }
 }

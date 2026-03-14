@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
-import java.util.Comparator;
+import java.util.List;
+import java.util.stream.IntStream;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -8,6 +9,8 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Person;
+import seedu.address.model.project.Project;
+import seedu.address.model.task.Task;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -40,6 +43,8 @@ public class PersonCard extends UiPart<Region> {
     private Label email;
     @FXML
     private FlowPane projects;
+    @FXML
+    private FlowPane tasks;
 
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
@@ -52,8 +57,15 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
-        person.getProjects().stream()
-                .sorted(Comparator.comparing(project -> project.title))
-                .forEach(project -> projects.getChildren().add(new Label(project.title)));
+        List<Project> projectList = person.getProjects();
+        List<Task> taskList = person.getTasks();
+        IntStream.range(0, projectList.size())
+                .forEach(i -> projects.getChildren().add(
+                        new Label((i + 1) + ". " + projectList.get(i).title)
+                ));
+        IntStream.range(0, taskList.size())
+                .forEach(i -> tasks.getChildren().add(
+                        new Label((i + 1) + ". " + taskList.get(i).description)
+                ));
     }
 }

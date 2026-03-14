@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 /**
  * Represents a Project in the address book.
- * Guarantees: immutable; title is valid as declared in {@link #isValidProjectName(String)}
+ * Guarantees: immutable; title is valid as declared in {@link #isValidProjectTitle(String)}
  */
 public class Project {
     public static final String MESSAGE_CONSTRAINTS = "Project title should be alphanumeric";
@@ -23,11 +23,11 @@ public class Project {
      */
     public Project(String title) {
         requireNonNull(title);
-        checkArgument(isValidProjectName(title), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidProjectTitle(title), MESSAGE_CONSTRAINTS);
         this.title = capitalize(title);
     }
 
-    public static boolean isValidProjectName(String test) {
+    public static boolean isValidProjectTitle(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

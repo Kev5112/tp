@@ -2,6 +2,12 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -10,6 +16,8 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.project.Project;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.task.Task;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -92,6 +100,74 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String task} into a {@code Task}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code task} is invalid.
+     */
+    public static Task parseTask(String task) throws ParseException {
+        requireNonNull(task);
+        String trimmedTask = task.trim();
+        if (!Task.isValidTaskDescription(trimmedTask)) {
+            throw new ParseException(Task.MESSAGE_CONSTRAINTS);
+        }
+        return new Task(trimmedTask);
+    }
+
+    /**
+     * Parses a {@code String tag} into a {@code Tag}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code tag} is invalid.
+     */
+    public static Tag parseTag(String tag) throws ParseException {
+        requireNonNull(tag);
+        String trimmedTag = tag.trim();
+        if (!Tag.isValidTagName(trimmedTag)) {
+            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+        }
+        return new Tag(trimmedTag);
+    }
+
+    /**
+     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     */
+    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
+        requireNonNull(tags);
+        final Set<Tag> tagSet = new HashSet<>();
+        for (String tagName : tags) {
+            tagSet.add(parseTag(tagName));
+        }
+        return tagSet;
+    }
+
+    /**
+     * Parses {@code Collection<String> tasks} into a {@code List<Task>}.
+     */
+    public static List<Task> parseTasks(Collection<String> tasks) throws ParseException {
+        requireNonNull(tasks);
+        final List<Task> taskSet = new ArrayList<>();
+        for (String description : tasks) {
+            taskSet.add(parseTask(description));
+        }
+        return taskSet;
+    }
+
+    /**
+     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     */
+    public static List<Index> parseTaskIndexes(Collection<String> oneBasedIndexes) throws ParseException {
+        requireNonNull(oneBasedIndexes);
+        final List<Index> taskIndexSet = new ArrayList<>();
+        for (String oneBasedIndex : oneBasedIndexes) {
+            taskIndexSet.add(parseIndex(oneBasedIndex));
+        }
+        return taskIndexSet;
+    }
+
+    /**
      * Parses a {@code String project} into an {@code Project}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -100,9 +176,35 @@ public class ParserUtil {
     public static Project parseProject(String project) throws ParseException {
         requireNonNull(project);
         String trimmedProject = project.trim();
-        if (!Project.isValidProjectName(trimmedProject)) {
+        if (!Project.isValidProjectTitle(trimmedProject)) {
             throw new ParseException(Project.MESSAGE_CONSTRAINTS);
         }
         return new Project(trimmedProject);
+    }
+
+    /**
+     * Parses {@code Collection<String> tasks} into a {@code List<Task>}.
+     */
+    public static List<Project> parseProjects(Collection<String> projects) throws ParseException {
+        requireNonNull(projects);
+        final List<Project> projectSet = new ArrayList<>();
+        for (String description : projects) {
+            projectSet.add(parseProject(description));
+        }
+        return projectSet;
+    }
+
+    /**
+     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     */
+    public static List<Index> parseProjectIndexes(Collection<String> oneBasedIndexes) throws ParseException {
+        requireNonNull(oneBasedIndexes);
+        final List<Index> projectIndexSet = new ArrayList<>();
+        for (String oneBasedIndex : oneBasedIndexes) {
+            projectIndexSet.add(parseIndex(oneBasedIndex));
+        }
+        return projectIndexSet;
     }
 }

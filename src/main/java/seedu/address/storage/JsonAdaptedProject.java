@@ -39,7 +39,7 @@ class JsonAdaptedProject {
      * @throws IllegalValueException if there were any data constraints violated in the adapted Project.
      */
     public Project toModelType() throws IllegalValueException {
-        if (!Project.isValidProjectName(projectTitle)) {
+        if (!Project.isValidProjectTitle(projectTitle)) {
             throw new IllegalValueException(Project.MESSAGE_CONSTRAINTS);
         }
         return new Project(projectTitle);
