@@ -618,6 +618,7 @@ Action | Format | Example
 **[Edit](#editing-a-person--edit)** | `edit PERSON_INDEX [-n NAME] [-p PHONE] [-e EMAIL]` | `edit 1 -n James Ho -p 22224444 -e jamesho@example.com`
 **[List](#listing-all-persons--list)** | `list` |
 **[Find](#locating-persons-by-multiple-fields-find)** | `find [-n NAME_KEYWORDS] [-p PHONE_KEYWORDS] [-e EMAIL_KEYWORDS]` | `find -n James -p 91234567`
+
 ---
 
 ### Project Commands
